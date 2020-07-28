@@ -1,0 +1,11 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3307/desafio?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+        password: root
+        username: root
+    flyway:
+        baseline-on-migrate: true
+        enabled: true
+        locations: classpath:db/migration
+        schemas: desafio
