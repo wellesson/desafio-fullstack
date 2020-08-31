@@ -1,11 +1,13 @@
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3307/desafio?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3307/job_spring_batch?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
         password: root
         username: root
     flyway:
         baseline-on-migrate: true
-        enabled: true
+        enabled: false
         locations: classpath:db/migration
-        schemas: desafio
+        schemas: job_spring_batch
+    batch:
+        initialize-schema: always

@@ -143,12 +143,13 @@ public class ImportArquivoBatch {
 
 	public class ReceitaItemWriter implements ItemWriter<ContaOutput> {
 
+		@Override
 		public void write(List<? extends ContaOutput> contasOutput) throws Exception {
 
-			for (ContaOutput contaOutput : contasOutput) {
-
+			contasOutput.parallelStream().forEach(contaOutput -> {
+				
 				ReceitaService receitaService = new ReceitaService();
-
+				
 				try {
 					double saldo = Double.valueOf(contaOutput.getSaldo().replace(",", "."));
 					boolean result = receitaService.atualizarConta(contaOutput.getAgencia(), contaOutput.getConta().replace("-", ""), saldo,
@@ -158,10 +159,13 @@ public class ImportArquivoBatch {
 					
 				} catch (RuntimeException e) {
 					contaOutput.setResultado("Fail");
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 				log.info("ReceitaService write: {}", contaOutput);
-			}
+			});
 		}
 	}
 	
